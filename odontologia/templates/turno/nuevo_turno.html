@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+
+{% block title %}
+    Nuevo Turno
+{% endblock title %}
+
+
+{% block head %}
+<link href="//cdn.bootcss.com/bootstrap-datetimepicker/4.17.44/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+{% endblock head %}
+    
+{% block content %}
+    
+<div class="container py-5">
+    <h1 class="py-3">Nuevo Turno</h1>
+    
+    <form method="post">
+        {% csrf_token %}
+        
+        {{form.as_p}}
+        <button type="submit" class="btn btn-primary">Cargar</button>
+    </form>
+</div>
+
+{% endblock content %}
+
+{% block scripts %}
+<script src="//cdn.bootcss.com/moment.js/2.17.1/moment.min.js"></script>
+<script src="//cdn.bootcss.com/bootstrap-datetimepicker/4.17.44/js/bootstrap-datetimepicker.min.js"></script>
+<script>
+    $(function () {
+        $('.datetime-input').datetimepicker({
+            format:'YYYY-MM-DD HH:mm:ss'
+        });
+    });
+</script>
+{% endblock scripts %}
+    

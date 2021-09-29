@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Listado de personas{% endblock title %}
+
+
+{% block content %}
+  
+<main class="container maincontent py-5">
+  <h1 class="py-3">Listado de personas</h1>
+
+  <article class="row">
+      <div class="col-md">
+          <table class="table table-success table-striped table-hover table-responsive">
+              <thead>
+                  <tr>
+                      <th scope="col">DNI</th>
+                      <th scope="col">Apellido</th>
+                      <th scope="col">Nombre</th>
+                      <th scope="col">CUIT</th>
+                      <th scope="col">Fecha Nacimiento</th>
+                      <th scope="col">Teléfono</th>
+                      <th scope="col">Email</th>
+                      <th scope="col">Dirección</th>
+                      <th scope="col">Localidad</th>
+                      <th scope="col">Modificar</th>
+                      <th scope="col">Eliminar</th>
+                    </tr>
+              </thead>
+              <tbody>
+                  
+                  {% for persona in personas %}
+                      <tr>
+                        <td>{{persona.num_doc}}</td>
+                        <td>{{persona.apellido}}</td>
+                        <td>{{persona.nombre}}</td>
+                        <td>{{persona.num_cuit}}</td>
+                        <td>{{persona.fecha_nac}}</td>
+                        <td>{{persona.telefono}}</td>
+                        <td>{{persona.email}}</td>
+                        <td>{{persona.direccion}}</td>
+                        <td>{{persona.localidad}}</td>
+                        <td class="text-center"><a href="{% url 'Odonto:editar_persona' persona.num_doc %}"><img src="{% static 'images/editar.png' %}" alt="Ïcono editar"></a></td>
+                        <td class="text-center"><a href="#" data-bs-toggle="modal" data-bs-target="#modal{{persona.num_doc}}"><img src="{% static 'images/eliminar.png' %}" alt="Ïcono eliminar"></a></td>
+                          
+                      </tr>
+                      <!-- Modal -->
+                      <div class="modal fade" id="modal{{persona.num_doc}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title" id="staticBackdropLabel">Eliminar Persona</h5>
+                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                              ¿Esta seguro de querer eliminar a  <b>{{persona.nombre}} {{persona.apellido}}</b>?
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                              <a href="{% url 'Odonto:eliminar_persona' persona.num_doc %}" class="btn btn-danger">Eliminar</a>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                  {% endfor %}
+                      
+              </tbody>
+            </table>
+      </div>
+  </article>
+</main>
+
+
+
+{% endblock content %}
+  

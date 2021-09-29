@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+
+{% block title %}
+    Agregar Persona
+{% endblock title %}
+    
+
+{% block content %}
+    
+<div class="container py-5">
+    <h1 class="py-3">Agregar Persona</h1>
+    
+    <form method="post">
+        {% csrf_token %}
+        
+        {{persona.as_p}}
+        <button type="submit" class="btn btn-primary">Cargar</button>
+    </form>
+</div>
+
+{% endblock content %}
+ 
