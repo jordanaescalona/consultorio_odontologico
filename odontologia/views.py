@@ -2,6 +2,8 @@ from django.shortcuts import render
 from .models import *
 from .forms import *
 from django.shortcuts import redirect
+from django.http import HttpResponseRedirect 
+from django.urls import reverse
 from django.shortcuts import get_object_or_404
 from django.contrib import messages
 # Create your views here.
@@ -10,16 +12,20 @@ def index(request):
     return render(request,'index.html')
 
 def agregar_persona(request):
+    
     if request.method == 'POST':
-        persona = PersonaForm(request.POST)
+        form = PersonaForm(request.POST or None)
 
-        if persona.is_valid():
-            persona.save()
+        if form.is_valid():
+            form.save()
             return redirect('Odonto:index')
+        else:
+            print(form.errors)
+        
     else:
-        persona = PersonaForm()
+        form = PersonaForm()
         return render(request,'persona/agregar_persona.html',{
-            'persona':persona
+            'form':form
         })
 
 def listado_personas(request):
@@ -57,18 +63,18 @@ def listado_pacientes(request):
 
 def agregar_paciente(request):
     if request.method == 'POST':
-        paciente = PacienteForm(request.POST)
+        form = PacienteForm(request.POST)
                    
-        if paciente.is_valid():
+        if form.is_valid():
                
-            paciente.save()
+            form.save()
             return redirect('Odonto:index')
+        
     else:
-        paciente = PacienteForm()
+        form = PacienteForm()
 
         return render(request,'paciente/agregar_paciente.html',{
-
-            'paciente':paciente
+            'form':form
         })
 
 def editar_paciente(request,id):
@@ -236,6 +242,7 @@ def modificar_turno(request,id):
         form = TurnoForm(data=request.POST,instance=turno)
         if form.is_valid():
             form.save()
+        
     else:
         form = TurnoForm(instance=turno)
         return render(request,'turno/modificar_turno.html',{

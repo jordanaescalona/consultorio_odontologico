@@ -9,7 +9,25 @@
     <form method="post">
         {% csrf_token %}
         
-        {{paciente.as_p}}
+        {% if form.errors %}
+            <div class="alert-danger">
+                <p>Hay errores en los datos ingresados, por favor  corrija lo siguiente:</p>
+                {{form.non_field_errors}}
+                <ul>
+                    
+                    {% for field in form %}
+                        
+                        {% if field.errors %}
+                            <li>{{field.label}}:{{field.errors|striptags}}</li>
+                        {% endif %}
+                            
+                    {% endfor %}
+                        
+                </ul>
+            </div>
+        {% endif %}
+        
+        {{form.as_p}}
         <button type="submit" class="btn btn-primary">Cargar</button>
     </form>
 </div>
