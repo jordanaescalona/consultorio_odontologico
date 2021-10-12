@@ -14,7 +14,7 @@
     
 <div class="container py-5">
     <h1 class="py-3">Nuevo Turno</h1>
-    
+    <hr>
     <form method="post">
         {% csrf_token %}
         
@@ -26,14 +26,21 @@
 {% endblock content %}
 
 {% block scripts %}
-<script src="//cdn.bootcss.com/moment.js/2.17.1/moment.min.js"></script>
-<script src="//cdn.bootcss.com/bootstrap-datetimepicker/4.17.44/js/bootstrap-datetimepicker.min.js"></script>
 <script>
-    $(function () {
-        $('.datetime-input').datetimepicker({
-            format:'YYYY-MM-DD HH:mm:ss'
+        $(document).ready(function() {
+            $('#id_paciente').select2({
+                placeholder: 'Agregar paciente ...',
+                allowClear:true
+            }
+
+            );
+            $('#id_medico').select2({
+                placeholder: 'Agregar profesional ...',
+                allowClear:true
+            }
+
+            );
         });
-    });
 </script>
 {% endblock scripts %}
     

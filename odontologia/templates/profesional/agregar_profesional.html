@@ -9,7 +9,7 @@
     
 <div class="container py-5">
     <h1 class="py-3">Agregar Profesional</h1>
-    
+    <hr>
     <form method="post">
         {% csrf_token %}
         
@@ -19,3 +19,17 @@
 </div>
 
 {% endblock content %}
+
+
+{% block scripts %}
+<script>
+    $(document).ready(function() {
+        $('#persona').select2({
+            placeholder: 'Agregar persona ...',
+            allowClear:true
+        });
+        
+    });
+</script>
+{% endblock scripts %}
+    

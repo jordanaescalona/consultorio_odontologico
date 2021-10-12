@@ -4,33 +4,37 @@
 {% block content %}
     
 <div class="container py-5">
-    <h1>Agregar Paciente</h1>
-    
+    <h1 class="pb-3">Agregar Paciente</h1>
+    <hr>
     <form method="post">
         {% csrf_token %}
-        
-        {% if form.errors %}
-            <div class="alert-danger">
-                <p>Hay errores en los datos ingresados, por favor  corrija lo siguiente:</p>
-                {{form.non_field_errors}}
-                <ul>
-                    
-                    {% for field in form %}
-                        
-                        {% if field.errors %}
-                            <li>{{field.label}}:{{field.errors|striptags}}</li>
-                        {% endif %}
-                            
-                    {% endfor %}
-                        
-                </ul>
-            </div>
-        {% endif %}
-        
-        {{form.as_p}}
+           
+        {% for field in form %}
+        <p>
+            {{ field.label_tag }}<br>
+            {{ field }}
+        {% for error in field.errors %}
+            <p class="alert-danger">  {{ error }}  </p>
+        {% endfor %}
+        </p>
+        {% endfor %}
         <button type="submit" class="btn btn-primary">Cargar</button>
     </form>
 </div>
 
 {% endblock content %}
  
+
+{% block scripts %}
+    <script>
+        $(document).ready(function() {
+            $('#persona').select2({
+                placeholder: 'Buscar persona ...',
+                allowClear:true
+            }
+
+            );
+        });
+    </script>
+{% endblock scripts %}
+    

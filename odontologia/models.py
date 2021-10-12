@@ -25,7 +25,7 @@ class Persona(models.Model):
         ordering =["apellido","nombre"]
 
     def __str__(self):
-        return '%s, %s' % (self.apellido, self.nombre)
+        return 'DNI N° %s - %s, %s' % (self.num_doc,self.apellido, self.nombre)
 
 class ObraSocial(models.Model):
     nombre = models.CharField(max_length=150)
@@ -114,7 +114,7 @@ class Turno(models.Model):
     estado = models.CharField(max_length=10,choices=ESTADO,default='Reservado')
 
     def __str__(self):
-        return '%s %s, %s %s' % (self.paciente.persona.nombre,self.paciente.persona.apellido,self.profesional.persona.nombre,self.profesional.persona.apellido)
+        return '%s %s, %s %s' % (self.paciente.persona.nombre,self.paciente.persona.apellido,self.medico.persona.nombre,self.medico.persona.apellido)
 
     class Meta:
         ordering = ['fecha']

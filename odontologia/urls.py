@@ -1,5 +1,7 @@
 from django.urls import path
 from .views import *
+
+
 app_name = "Odonto"
 urlpatterns = [
      path('',index,name='index'),
@@ -21,7 +23,10 @@ urlpatterns = [
      path('obrasocial/eliminar/<int:id>',eliminar_os,name='eliminar_os'),
      path('establecimiento',establecimiento,name='establecimiento'),
      path('establecimiento/agregar',agregar_establecimiento,name='agregar_establecimiento'),
-     path('turno',ver_turnos,name='turnos'),
+     path('turnos',ver_turnos,name='turnos'),
      path('turno/nuevo',agregar_turno,name='agregar_turno'),
      path('turno/editar/<int:id>',modificar_turno,name='editar_turno'),
+     path('turno/eliminar/<int:id>',eliminar_turno,name="eliminar_turno"),
+     path('login',login_view,name='login'),
+     path('logout',logout_view,name='logout'),
 ]

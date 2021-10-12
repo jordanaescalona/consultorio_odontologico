@@ -55,9 +55,11 @@ class PacienteForm(forms.ModelForm):
         fields = '__all__'
         widgets ={
             'persona': forms.Select(attrs={
-                'readonly':'readonly'
+                'name':'persona',
+                'id':'persona'
             })
         }
+
     def __init__(self, *args, **kwargs):
         super(PacienteForm, self).__init__(*args, **kwargs)
         for visible in self.visible_fields():
@@ -69,7 +71,8 @@ class ProfesionalForm(forms.ModelForm):
         fields = '__all__'
         widgets ={
             'persona': forms.Select(attrs={
-                'readonly':'readonly'
+                'name':'persona',
+                'id':'persona'
             })
         }
 
@@ -107,6 +110,12 @@ class TurnoForm(forms.ModelForm):
     class Meta:
         model = Turno
         fields = '__all__'
+        widget = {
+            'paciente': forms.Select(attrs={
+                'name':'paciente',
+                'id':'paciente'
+            })
+        }
         
     
     def __init__(self, *args, **kwargs):

@@ -10,13 +10,16 @@
     
 <div class="container py-5">
     <h1 class="py-3">Editar Turno</h1>
-    
+    <hr>
     <form method="post">
         {% csrf_token %}
         
         {{form.as_p}}
         <button type="submit" class="btn btn-primary">Editar</button>
+        <a href="{% url 'Odonto:eliminar_turno' turno.id %}" class="btn btn-danger">Eliminar</a>
     </form>
+    
 </div>
+
 
 {% endblock content %}

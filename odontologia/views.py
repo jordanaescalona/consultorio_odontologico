@@ -3,14 +3,23 @@ from .models import *
 from .forms import *
 from django.shortcuts import redirect
 from django.http import HttpResponseRedirect 
-from django.urls import reverse
+from django.urls import reverse,reverse_lazy
 from django.shortcuts import get_object_or_404
 from django.contrib import messages
+#autenticacion
+from django.contrib.auth import authenticate
+from django.contrib.auth import login
+#desloguearse
+from django.contrib.auth import logout
+#libreria login requerido
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 
+@login_required(login_url='Odonto:login')
 def index(request):
     return render(request,'index.html')
 
+@login_required(login_url='Odonto:login')
 def agregar_persona(request):
     
     if request.method == 'POST':
@@ -19,8 +28,7 @@ def agregar_persona(request):
         if form.is_valid():
             form.save()
             return redirect('Odonto:index')
-        else:
-            print(form.errors)
+       
         
     else:
         form = PersonaForm()
@@ -28,12 +36,14 @@ def agregar_persona(request):
             'form':form
         })
 
+@login_required(login_url='Odonto:login')
 def listado_personas(request):
     personas = Persona.objects.all()
     return render(request,'persona/listado_personas.html',{
         'personas':personas
     })
 
+@login_required(login_url='Odonto:login')
 def editar_persona(request,id):
     persona = get_object_or_404(Persona,num_doc=id)
     if request.method == 'POST':
@@ -49,11 +59,13 @@ def editar_persona(request,id):
 
     return redirect('Odonto:listado_personas')
 
+@login_required(login_url='Odonto:login')
 def eliminar_persona(request,id):
     persona = get_object_or_404(Persona,num_doc=id)
     persona.delete()
     return redirect('Odonto:listado_personas')
 
+@login_required(login_url='Odonto:login')
 def listado_pacientes(request):
     pacientes = Paciente.objects.all()
 
@@ -61,22 +73,35 @@ def listado_pacientes(request):
         'pacientes':pacientes
     })
 
+@login_required(login_url='Odonto:login')
 def agregar_paciente(request):
+    
     if request.method == 'POST':
         form = PacienteForm(request.POST)
                    
         if form.is_valid():
                
             form.save()
-            return redirect('Odonto:index')
+            return redirect(reverse('Odonto:index'))
+        else:
+            for f in form:
+                error = []
+                if form.errors:
+                    error.append(form.errors)
+            print('Errores:/n',error) 
+            return render(request,'paciente/agregar_paciente.html',{
+                'form':form,
+                'error':error
+            })
         
     else:
         form = PacienteForm()
 
-        return render(request,'paciente/agregar_paciente.html',{
-            'form':form
-        })
+    return render(request,'paciente/agregar_paciente.html',{
+        'form':form
+    })
 
+@login_required(login_url='Odonto:login')    
 def editar_paciente(request,id):
     paciente = get_object_or_404(Paciente,id=id)
     if request.method == 'POST':
@@ -90,11 +115,13 @@ def editar_paciente(request,id):
         })
     return redirect('Odonto:listado_pacientes')
 
+@login_required(login_url='Odonto:login')
 def eliminar_paciente(request,id):
     paciente = get_object_or_404(Paciente,id=id)
     paciente.delete()
     return redirect('Odonto:listado_pacientes')
 
+@login_required(login_url='Odonto:login')
 def agregar_profesional(request):
     if request.method == 'POST':
         profesional = ProfesionalForm(request.POST)
@@ -108,12 +135,14 @@ def agregar_profesional(request):
             'profesional':profesional
         })
 
+@login_required(login_url='Odonto:login')
 def listado_profesionales(request):
     profesionales = Profesional.objects.all()
     return render(request,'profesional/listado_profesionales.html',{
         'profesionales':profesionales
     })
 
+@login_required(login_url='Odonto:login')
 def editar_profesional(request,id):
     profesional = get_object_or_404(Profesional,matricula=id)
     if request.method == 'POST':
@@ -127,11 +156,13 @@ def editar_profesional(request,id):
         })
     return redirect('Odonto:listado_profesionales')
 
+@login_required(login_url='Odonto:login')
 def eliminar_profesional(request,id):
     profesional = get_object_or_404(Profesional,matricula=id)
     profesional.delete()
     return redirect('Odonto:listado_profesionales')
 
+@login_required(login_url='Odonto:login')
 def agregar_os(request):
     if request.method == 'POST':
         obrasocial = ObraSocialForm(request.POST)
@@ -145,12 +176,14 @@ def agregar_os(request):
             'os':obrasocial
         }) 
 
+@login_required(login_url='Odonto:login')
 def listado_os(request):
     obrasociales = ObraSocial.objects.all()
     return render(request,'obrasocial/listado_os.html',{
         'obs':obrasociales
     })   
 
+@login_required(login_url='Odonto:login')
 def editar_os(request,id):
     os = get_object_or_404(ObraSocial,id=id)
     if request.method == 'POST':
@@ -163,6 +196,7 @@ def editar_os(request,id):
             'form':form
         })
 
+@login_required(login_url='Odonto:login')
 def eliminar_os(request,id):
     os = get_object_or_404(ObraSocial,id=id)
     paciente_os = Paciente.objects.filter(obra_social=os)
@@ -174,6 +208,7 @@ def eliminar_os(request,id):
     
     return redirect('Odonto:listado_os')
 
+@login_required(login_url='Odonto:login')
 def establecimiento(request):
     establecimientos = Establecimiento.objects.all()
 
@@ -196,7 +231,7 @@ def establecimiento(request):
             'establecimientos':establecimientos
         })
 
-
+@login_required(login_url='Odonto:login')
 def agregar_establecimiento(request):
     if request.method == 'POST':
         form = EstablecimientoForm(request.POST)
@@ -209,21 +244,16 @@ def agregar_establecimiento(request):
             'form':form
         })
 
+@login_required(login_url='Odonto:login')
 def ver_turnos(request):
     turnos = Turno.objects.all()
     
-    diccionario ={}
-    for turno in turnos:
-        diccionario['title'] = turno.paciente.persona
-        diccionario['start'] = turno.fecha
-
-    print(diccionario)
         
     return render(request,'turno/turno.html',{
-        'turnos':turnos,
-        'diccionario':diccionario
+        'turnos':turnos
     }) 
 
+@login_required(login_url='Odonto:login')
 def agregar_turno(request):
     if request.method == 'POST':
         form = TurnoForm(request.POST)
@@ -236,8 +266,10 @@ def agregar_turno(request):
             'form':form
         })
 
+@login_required(login_url='Odonto:login')
 def modificar_turno(request,id):
     turno = get_object_or_404(Turno,id=id)
+
     if request.method == 'POST':
         form = TurnoForm(data=request.POST,instance=turno)
         if form.is_valid():
@@ -246,6 +278,48 @@ def modificar_turno(request,id):
     else:
         form = TurnoForm(instance=turno)
         return render(request,'turno/modificar_turno.html',{
-            'form':form
+            'form':form,
+            'turno':turno
         })
     return redirect('Odonto:turnos')
+
+@login_required(login_url='Odonto:login')
+def eliminar_turno(request,id):
+    turno = get_object_or_404(Turno,id=id)
+    turno.delete()
+    return redirect('Odonto:turnos')
+    
+
+def login_view(request):
+    
+    if not request.user.is_authenticated: 
+        
+        
+        if request.method == 'POST':
+            username = request.POST.get('username')
+            password = request.POST.get('password')
+            
+            user = authenticate(username=username,password=password)
+
+            if user:
+                login(request,user)
+                #mensaje de exito
+                messages.success(request,'Bienvenido {}'.format(user.username))
+                return redirect('Odonto:index')
+            else:
+                #mensaje de error
+                messages.error(request, 'Usuario o contaseña no validos')
+
+        return render(request,'login.html',{
+        })
+
+    return redirect('Odonto:index')
+
+@login_required(login_url='Odonto:login')
+def logout_view(request):
+    if request.user.is_authenticated: 
+        logout(request)
+        messages.success(request,'Sesión cerrada correctamente')
+        return redirect('Odonto:index')
+
+    return redirect('odonto:index')
