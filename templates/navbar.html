@@ -2,8 +2,7 @@
 {% url 'Odonto:index' as index %}
 {% url 'Odonto:agregar_paciente' as agregar_paciente %}
 {% url 'Odonto:listado_pacientes' as listado_pacientes %}
-{% url 'Odonto:agregar_persona' as agregar_persona %}
-{% url 'Odonto:listado_personas' as listado_personas %}
+
 {% url 'Odonto:agregar_profesional' as agregar_profesional %}
 {% url 'Odonto:listado_profesionales' as listado_profesionales %}
 {% url 'Odonto:agregar_os' as agregar_os %}
@@ -14,86 +13,92 @@
   <div class="text-center">
     <img src="{% static 'images/logo.png' %}" alt="Logo" width="150px">
     <h1>SISTEMA ODONTOLÓGICO</h1>
-  </div> 
-    <div class="pr-3 d-flex flex-row-reverse">
-      <div class="px-2">
-        <a href="{% url 'Odonto:logout' %}" class="btn btn-danger">Cerrar Sesión</a>
-      </div>
+  </div>
+  <div class="pr-3 d-flex flex-row-reverse">
+    <div class="px-2">
+      <a href="{% url 'Odonto:logout' %}" class="btn btn-danger">Cerrar Sesión</a>
     </div>
+  </div>
 </div>
 
 <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #BAD5FF;">
-    <div class="container-fluid px-5">
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-        
-        <ul class="nav nav-pills nav-fill me-auto">
-          <li class="nav-item">
-            <a class="nav-link {% if request.path == index %}active{% endif %}" aria-current="page" href="{% url 'Odonto:index' %}">HOME</a>
-          </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle {% if '/persona' in request.path %}active{% endif %}" href="#" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              PERSONA
-            </a>
-            <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
-              <li><a class="dropdown-item {% if request.path == agregar_persona %}active{% endif %}" href="{% url 'Odonto:agregar_persona' %}">Agregar</a></li>
-              <li><a class="dropdown-item {% if request.path == listado_personas %}active{% endif %}" href="{% url 'Odonto:listado_personas' %}">Listado</a></li>
-              
-            </ul>
-          </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle {% if '/pacientes' in request.path %}active{% endif %}" href="#" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              PACIENTE
-            </a>
-            <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
-              <li><a class="dropdown-item {% if request.path == agregar_paciente %}active{% endif %}" href="{% url 'Odonto:agregar_paciente' %}">Agregar</a></li>
-              <li><a class="dropdown-item {% if request.path == listado_pacientes %}active{% endif %}" href="{% url 'Odonto:listado_pacientes' %}">Listado</a></li>
-              
-            </ul>
-          </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle {% if '/profesional' in request.path %}active{% endif %}" href="#" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              PROFESIONAL
-            </a>
-            <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
-              <li><a class="dropdown-item {% if request.path == agregar_profesional %}active{% endif %}" href="{% url 'Odonto:agregar_profesional' %}">Agregar</a></li>
-              <li><a class="dropdown-item {% if request.path == listado_profesionales %}active{% endif %}" href="{% url 'Odonto:listado_profesionales' %}">Listado</a></li>
-              
-            </ul>
-          </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle {% if '/obrasocial' in request.path %}active{% endif %}" href="#" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              OBRA SOCIAL
-            </a>
-            <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
-              <li><a class="dropdown-item {% if request.path == agregar_os %}active{% endif %}" href="{% url 'Odonto:agregar_os' %}">Agregar</a></li>
-              <li><a class="dropdown-item {% if request.path == listado_os %}active{% endif %}" href="{% url 'Odonto:listado_os' %}">Listado</a></li>
-              
-            </ul>
-          </li>
+  <div class="container-fluid px-5">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01"
+      aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
 
-          <li class="nav-item">
-            <a class="nav-link {% if '/establecimiento' in request.path %}active{% endif %}" href="{% url 'Odonto:establecimiento' %}">ESTABLECIMIENTO</a>
-          </li>
+      <ul class="nav nav-pills nav-fill me-auto">
+        <li class="nav-item">
+          <a class="nav-link {% if request.path == index %}active{% endif %}" aria-current="page"
+            href="{% url 'Odonto:index' %}">HOME</a>
+        </li>
 
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle {% if '/turno' in request.path %}active{% endif %}" href="#" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              TURNOS
-            </a>
-            <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
-              <li><a class="dropdown-item" href="{% url 'Odonto:turnos' %}">Ver Turnos</a></li>
-              <li><a class="dropdown-item " href="{% url 'Odonto:agregar_turno' %}">Nuevo</a></li>
-              
-            </ul>
-          </li>
-          
-        </ul>
-        <form class="d-flex">
-          <input class="form-control me-2" type="search" placeholder="Buscar..." aria-label="Search">
-          <button class="btn btn-outline-success" type="submit">Buscar</button>
-        </form>
-      </div>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle {% if '/pacientes' in request.path %}active{% endif %}" href="#"
+            id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            PACIENTE
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
+            <li><a class="dropdown-item {% if request.path == agregar_paciente %}active{% endif %}"
+                href="{% url 'Odonto:agregar_paciente' %}">Agregar</a></li>
+            <li><a class="dropdown-item {% if request.path == listado_pacientes %}active{% endif %}"
+                href="{% url 'Odonto:listado_pacientes' %}">Listado</a></li>
+
+          </ul>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle {% if '/profesional' in request.path %}active{% endif %}" href="#"
+            id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            PROFESIONAL
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
+            <li><a class="dropdown-item {% if request.path == agregar_profesional %}active{% endif %}"
+                href="{% url 'Odonto:agregar_profesional' %}">Agregar</a></li>
+            <li><a class="dropdown-item {% if request.path == listado_profesionales %}active{% endif %}"
+                href="{% url 'Odonto:listado_profesionales' %}">Listado</a></li>
+
+          </ul>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle {% if '/obrasocial' in request.path %}active{% endif %}" href="#"
+            id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            OBRA SOCIAL
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
+            <li><a class="dropdown-item {% if request.path == agregar_os %}active{% endif %}"
+                href="{% url 'Odonto:agregar_os' %}">Agregar</a></li>
+            <li><a class="dropdown-item {% if request.path == listado_os %}active{% endif %}"
+                href="{% url 'Odonto:listado_os' %}">Listado</a></li>
+
+          </ul>
+        </li>
+
+       
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle {% if '/turno' in request.path %}active{% endif %}" href="#"
+            id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            TURNOS
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
+            <li><a class="dropdown-item" href="{% url 'Odonto:turnos' %}">Ver Turnos</a></li>
+            <li><a class="dropdown-item " href="{% url 'Odonto:agregar_turno' %}">Nuevo</a></li>
+
+          </ul>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link {% if '/establecimiento' in request.path %}active{% endif %}"
+            href="{% url 'Odonto:establecimiento' %}">CONFIGURACIÓN</a>
+        </li>
+
+      </ul>
+      <form class="d-flex">
+        <input class="form-control me-2" type="search" placeholder="Buscar..." aria-label="Search">
+        <button class="btn btn-outline-success" type="submit">Buscar</button>
+      </form>
     </div>
-  </nav>
+  </div>
+</nav>

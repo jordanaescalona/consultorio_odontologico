@@ -323,3 +323,50 @@ def logout_view(request):
         return redirect('Odonto:index')
 
     return redirect('odonto:index')
+
+#------------localidad
+@login_required(login_url='Odonto:login')
+def agregar_localidad(request):
+    
+    if request.method == 'POST':
+        form = LocalidadForm(request.POST or None)
+
+        if form.is_valid():
+            form.save()
+            return redirect('Odonto:index')
+       
+        
+    else:
+        form = LocalidadForm()
+        return render(request,'localidad/agregar_localidad.html',{
+            'form':form
+        })
+
+@login_required(login_url='Odonto:login')
+def listado_personas(request):
+    personas = Persona.objects.all()
+    return render(request,'persona/listado_personas.html',{
+        'personas':personas
+    })
+
+@login_required(login_url='Odonto:login')
+def editar_persona(request,id):
+    persona = get_object_or_404(Persona,num_doc=id)
+    if request.method == 'POST':
+        form = PersonaForm(data=request.POST,instance=persona)
+        if form.is_valid():
+            form.save()
+    else:
+        form = PersonaForm(instance=persona)
+        return render(request,'persona/editar_persona.html',{
+            'persona':persona,
+            'form':form
+        })
+
+    return redirect('Odonto:listado_personas')
+
+@login_required(login_url='Odonto:login')
+def eliminar_persona(request,id):
+    persona = get_object_or_404(Persona,num_doc=id)
+    persona.delete()
+    return redirect('Odonto:listado_personas')

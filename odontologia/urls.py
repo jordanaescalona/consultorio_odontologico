@@ -29,4 +29,5 @@ urlpatterns = [
      path('turno/eliminar/<int:id>',eliminar_turno,name="eliminar_turno"),
      path('login',login_view,name='login'),
      path('logout',logout_view,name='logout'),
+     path('localidad/agregar',agregar_localidad,name="agregar_localidad"),
 ]

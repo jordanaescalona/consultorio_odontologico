@@ -25,6 +25,9 @@ class ObraSocialForm(forms.ModelForm):
             }),
             'disponible':forms.CheckboxInput(attrs={
                 'class':'form-check-input'
+            }),
+            'telefono':forms.TextInput(attrs={
+                'class':'form-control'
             })
         }
 
@@ -86,16 +89,21 @@ class EstablecimientoForm(forms.ModelForm):
         model = Establecimiento
         fields = '__all__'
 
-        widgets ={
-                'localidad': forms.Select(attrs={
-                    'readonly':'readonly'
-                })
-            }
 
     def __init__(self, *args, **kwargs):
         super(EstablecimientoForm, self).__init__(*args, **kwargs)
         for visible in self.visible_fields():
             visible.field.widget.attrs['class'] = 'form-control'   
+
+class LocalidadForm(forms.ModelForm):
+    class Meta:
+        model = Localidad
+        fields = '__all__'
+
+    def __init__(self, *args, **kwargs):
+        super(LocalidadForm, self).__init__(*args, **kwargs)
+        for visible in self.visible_fields():
+            visible.field.widget.attrs['class'] = 'form-control' 
 
 class TurnoForm(forms.ModelForm):
     

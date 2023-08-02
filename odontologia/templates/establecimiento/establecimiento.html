@@ -2,34 +2,46 @@
 
 
 {% block title %}
-    Establecimiento
+Establecimiento
 {% endblock title %}
-    
+
 
 {% block content %}
-    
-<div class="container py-5">
-    <h1 class="py-3">Datos del Establecimiento</h1>
-    <hr>
-    
-    {% if establecimientos %}
-    <div class="container py-5">
-        
-        
-        <form method="post">
-            {% csrf_token %}
-            
-            {{form.as_p}}
-            <button type="submit" class="btn btn-primary">Editar</button>
-        </form>
-    </div>
-    {% else %}
 
-    <h2>Aún no se cargaron datos</h2>
-    <a href="{% url 'Odonto:agregar_establecimiento' %}" class="btn btn-primary">Cargas datos</a>
-    {% endif %}
-        
+<div class="container py-3">
+    <div class="jumbotron jumbotron-fluid">
+        <div class="container">
+            <h1 class="display-5">Localidades</h1>
+            <hr>
+            <a href="{% url 'Odonto:agregar_localidad' %}" class="btn btn-success">Cargar</a> <a href="" class="btn btn-warning">Listado</a>
+        </div>
+    </div>
+    <br><br><br>
+    <div class="jumbotron jumbotron-fluid">
+        <div class="container">
+            <h1 class="display-5">Datos del establecimiento</h1>
+            <hr>
+            {% if establecimientos %}
+            <div class="container py-5">
+
+
+                <form method="post">
+                    {% csrf_token %}
+
+                    {{form.as_p}}
+                    <button type="submit" class="btn btn-primary">Editar</button>
+                </form>
+            </div>
+            {% else %}
+
+            <h2>Aún no se cargaron datos</h2>
+            <a href="{% url 'Odonto:agregar_establecimiento' %}" class="btn btn-primary">Cargas datos</a>
+            {% endif %}
+        </div>
+    </div>
+
+
+
 </div>
 
 {% endblock content %}
- 
